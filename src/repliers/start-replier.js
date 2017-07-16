@@ -7,7 +7,7 @@ async function reply({userId, text}) {
 
   var challenges = await repository.getChallenges();
   if(!challenges.length) {
-    throw new Error('No challenges found');
+    return { text: "No available challenges. Check again tomorrow!"};
   }
   challenges = challenges.map(x => x.title);
 
