@@ -42,6 +42,7 @@ async function reply({userId, text}) {
   var statsMessage = getStatsMessage(challenge, correctQuestionCount);
   var startNewChallengeMessage = startNewChallengeMessageFormatter.format();
   await repository.setActiveChallenge(userId, null);
+  await repository.saveChallengeResult(userId, challenge._id, challenge.questions.length, correctQuestionCount);
   return [ feedbackMessage, statsMessage, startNewChallengeMessage ];
 }
 

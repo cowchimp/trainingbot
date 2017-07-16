@@ -5,7 +5,7 @@ async function reply({userId, text}) {
     return null;
   }
 
-  var challenges = await repository.getChallenges();
+  var challenges = await getChallenges(userId);
   if(!challenges.length) {
     return { text: "No available challenges. Check again tomorrow!"};
   }
@@ -26,3 +26,18 @@ async function reply({userId, text}) {
 }
 
 exports.reply = reply;
+
+async function getChallenges(userId) {
+  var challenges = await repository.getChallenges();
+  if(!challenges.length) {
+    return [];
+  }
+
+  var player = await repository.getPlayer(userId);
+  if(!player || !player.history) {
+    return challenges;
+  }
+
+  var completedChallengeIds = Object.keys(player.history);
+  return challenges.filter(x => !completedChallengeIds.includes(x._id));
+}

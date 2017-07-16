@@ -68,6 +68,23 @@ async function advanceToNextQuestion(userId, shouldIncCorrectQuestionCount = fal
   }
 }
 
+async function saveChallengeResult(userId, challengeId, questionCount, correctQuestionCount) {
+  var db = await MongoClient.connect(mongoUrl);
+
+  try {
+    var filter = { _id: userId };
+    var update = { $set: {
+      [`history.${challengeId}`]: {
+        questionCount: questionCount,
+        correctQuestionCount: correctQuestionCount
+      }
+    }};
+    return await db.collection('players').updateOne(filter, update);
+  } finally {
+    db.close();
+  }
+}
+
 function getMongoUrl() {
   var mongoUrl = config.get('mongoUrl');
   if(typeof mongoUrl != 'string' || !mongoUrl.length) {
@@ -83,5 +100,6 @@ module.exports = {
   getChallengeById: id => getChallenge(({ _id: id })),
   getPlayer: getPlayer,
   setActiveChallenge: setActiveChallenge,
-  advanceToNextQuestion: advanceToNextQuestion
+  advanceToNextQuestion: advanceToNextQuestion,
+  saveChallengeResult: saveChallengeResult
 };
