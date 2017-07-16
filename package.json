@@ -9,12 +9,11 @@
   "repository": "cowchimp/trainingbot",
   "license": "MIT",
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=8.0.0"
   },
   "scripts": {
-    "start": "node dist/app.js",
-    "build": "rimraf dist && babel src -d dist",
-    "test": "mocha --compilers js:babel-register"
+    "start": "node src/app.js",
+    "test": "mocha test"
   },
   "dependencies": {
     "mongodb": "^2.2.11",
@@ -24,10 +23,6 @@
     "request-promise-native": "^1.0.3"
   },
   "devDependencies": {
-    "babel-cli": "^6.16.0",
-    "babel-plugin-transform-async-to-generator": "^6.16.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.16.0",
-    "babel-register": "^6.16.3",
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
     "rimraf": "^2.5.4",

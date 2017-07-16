@@ -14,6 +14,4 @@ function format(question) {
   };
 }
 
-export default {
-  format: format
-};
+exports.format = format;

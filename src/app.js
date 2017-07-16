@@ -1,6 +1,6 @@
-import TelegramBot from 'node-telegram-bot-api';
-import config from './config';
-import messageReplier from './message-replier';
+const TelegramBot = require('node-telegram-bot-api');
+const config = require('./config');
+const messageReplier = require('./message-replier');
 
 var telegramToken = config.get('telegramToken');
 if(typeof telegramToken != 'string' || !telegramToken.length) {

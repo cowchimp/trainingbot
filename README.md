@@ -6,15 +6,16 @@ A [Telegram](https://telegram.org) quiz chatbot to help you train and level-up y
 
 ## Getting started
 
+Requires node >= 8.0 (or set up [Babel](https://babeljs.io) instead)
+
 1. Run `npm install`
-2. Run `npm run-script build` (runs Babel)
-3. Set these environment variables
+2. Set these environment variables
   1. `telegramToken` (e.g. 123456789:AbC0dEf1GhI2jKl3M-nO4pQr5StU6vWx7Yz)
   2. `mongoUrl` (e.g localhost:27017/trainingbot)
-4. The bot uses [MongoDB](https://www.mongodb.com/) for persistence.
+3. The bot uses [MongoDB](https://www.mongodb.com/) for persistence.
   1. Create a `challenges` collection.
   2. Add at least one challenge document according to the format in `example-challenge-document.json`
-5. Run `npm start`
+4. Run `npm start`
 
 ## Running tests
 

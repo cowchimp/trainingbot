@@ -1,8 +1,8 @@
-import startReplier from './repliers/start-replier';
-import chooseChallengeReplier from './repliers/choose-challenge-replier';
-import answerQuestionReplier from './repliers/answer-question-replier';
-import startNewChallengeMessageFormatter from './message-formatters/start-new-challenge-message-formatter';
-import chainProcessor from './chain-processor';
+const startReplier = require('./repliers/start-replier');
+const chooseChallengeReplier = require('./repliers/choose-challenge-replier');
+const answerQuestionReplier = require('./repliers/answer-question-replier');
+const startNewChallengeMessageFormatter = require('./message-formatters/start-new-challenge-message-formatter');
+const chainProcessor = require('./chain-processor');
 
 var repliers = [
   startReplier.reply,
@@ -40,6 +40,4 @@ async function reply(message) {
   }
 }
 
-export default {
-  reply: reply
-}
+exports.reply = reply;

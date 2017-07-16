@@ -7,6 +7,4 @@ function format() {
   };
 }
 
-export default {
-  format: format
-};
+exports.format = format;

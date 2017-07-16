@@ -1,5 +1,5 @@
-import nconf from 'nconf';
+const nconf = require('nconf');
 
 nconf.env();
 
-export default nconf;
+module.exports = nconf;

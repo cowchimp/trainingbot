@@ -16,7 +16,5 @@ function process(handlers, value) {
   }
 }
 
-export default {
-  process: process,
-  processAsync: processAsync
-}
+exports.process = process;
+exports.processAsync = processAsync;

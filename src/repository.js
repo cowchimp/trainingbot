@@ -1,5 +1,5 @@
-import { MongoClient } from 'mongodb';
-import config from './config';
+const { MongoClient } = require('mongodb');
+const config = require('./config');
 
 var mongoUrl = getMongoUrl();
 
@@ -75,11 +75,11 @@ function getMongoUrl() {
   return mongoUrl;
 }
 
-export default {
+module.exports = {
   getChallenges: getChallenges,
   getChallengeByTitle: title => getChallenge(({ title: title })),
   getChallengeById: id => getChallenge(({ _id: id })),
   getPlayer: getPlayer,
   setActiveChallenge: setActiveChallenge,
   advanceToNextQuestion: advanceToNextQuestion
-}
+};

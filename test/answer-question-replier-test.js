@@ -1,7 +1,7 @@
-import chai from 'chai';
-import sinon from 'sinon';
-import repository from '../src/repository';
-import answerQuestionReplier from '../src/repliers/answer-question-replier';
+const chai = require('chai');
+const sinon = require('sinon');
+const repository = require('../src/repository');
+const answerQuestionReplier = require('../src/repliers/answer-question-replier');
 
 chai.should();
 

@@ -1,6 +1,6 @@
-import repository from '../repository';
-import questionMessageFormatter from '../message-formatters/question-message-formatter';
-import startNewChallengeMessageFormatter from '../message-formatters/start-new-challenge-message-formatter';
+const repository = require('../repository');
+const questionMessageFormatter = require('../message-formatters/question-message-formatter');
+const startNewChallengeMessageFormatter = require('../message-formatters/start-new-challenge-message-formatter');
 
 async function reply({userId, text}) {
   if(!text) {
@@ -41,9 +41,7 @@ async function reply({userId, text}) {
   return [ feedbackMessage, statsMessage, startNewChallengeMessage ];
 }
 
-export default {
-  reply: reply
-};
+exports.reply = reply;
 
 function getValidAnswerFeedbackMessage(isCorrectAnswer, question) {
   var responseText = isCorrectAnswer ? "That's correct! \u{1F44D}" : ["That's wrong \u{1F44E}", 'The correct answer is:', question.answers[question.correctAnswerIndex]].join('\n');

@@ -1,5 +1,5 @@
-import repository from '../repository';
-import questionMessageFormatter from '../message-formatters/question-message-formatter';
+const repository = require('../repository');
+const questionMessageFormatter = require('../message-formatters/question-message-formatter');
 
 async function reply({userId, text}) {
   if(!text) {
@@ -26,6 +26,4 @@ async function reply({userId, text}) {
   return [ introMessage, questionMessage ];
 }
 
-export default {
-  reply: reply
-};
+exports.reply = reply;

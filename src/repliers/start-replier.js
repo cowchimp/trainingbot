@@ -1,4 +1,4 @@
-import repository from '../repository';
+const repository = require('../repository');
 
 async function reply({userId, text}) {
   if(text != '/start') {
@@ -25,6 +25,4 @@ async function reply({userId, text}) {
   };
 }
 
-export default {
-  reply: reply
-};
+exports.reply = reply;
