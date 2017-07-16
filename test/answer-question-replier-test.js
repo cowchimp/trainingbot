@@ -27,7 +27,7 @@ describe('answerQuestionReplier', function() {
 
   describe('reply', function() {
     it('should reply that the answer is invalid and repeat the question when the answer is invalid', async function() {
-      this.sinon.stub(repository, 'getPlayer').withArgs(1).returns({ activeChallenge: '1st-grade-math', questionIndex: 0 });
+      this.sinon.stub(repository, 'getPlayer').withArgs(1).returns({ activeChallenge: { challengeId: '1st-grade-math', questionIndex: 0 } });
       var expected = [ "That's not a valid answer for the question- try again", {
         text: "1+1?",
         options: {
@@ -48,7 +48,7 @@ describe('answerQuestionReplier', function() {
     });
 
     it('should reply "That\'s correct!" and send the next question when the answer is correct', async function() {
-      this.sinon.stub(repository, 'getPlayer').withArgs(1).returns({ activeChallenge: '1st-grade-math', questionIndex: 0 });
+      this.sinon.stub(repository, 'getPlayer').withArgs(1).returns({ activeChallenge: { challengeId: '1st-grade-math', questionIndex: 0 } });
       var expected = [ {
           text: "That's correct! \u{1F44D}",
           options: { parse_mode: "Markdown" }
@@ -71,7 +71,7 @@ describe('answerQuestionReplier', function() {
     });
 
     it('should reply "That\'s correct!" and send the challenge stats when the question is the last one and the answer is correct', async function() {
-      this.sinon.stub(repository, 'getPlayer').withArgs(1).returns({ activeChallenge: '1st-grade-math', questionIndex: 1, correctQuestionCount: 1 });
+      this.sinon.stub(repository, 'getPlayer').withArgs(1).returns({ activeChallenge: { challengeId: '1st-grade-math', questionIndex: 1, correctQuestionCount: 1 } });
       var expected = [ {
         text: "That's correct! \u{1F44D}",
         options: { parse_mode: "Markdown" }
@@ -90,7 +90,7 @@ describe('answerQuestionReplier', function() {
     });
 
     it('should reply "That\'s wrong, the correct answer is..." and send the next question when the answer is wrong', async function() {
-      this.sinon.stub(repository, 'getPlayer').withArgs(1).returns({ activeChallenge: '1st-grade-math', questionIndex: 0 });
+      this.sinon.stub(repository, 'getPlayer').withArgs(1).returns({ activeChallenge: { challengeId: '1st-grade-math', questionIndex: 0 } });
       var expected = [ {
         text: "That's wrong \u{1F44E}\nThe correct answer is:\n2",
         options: { parse_mode: "Markdown" }
@@ -113,7 +113,7 @@ describe('answerQuestionReplier', function() {
     });
 
     it('should reply "That\'s wrong, the correct answer is..." and send the challenge stats when the question is the last one and the answer is wrong', async function() {
-      this.sinon.stub(repository, 'getPlayer').withArgs(1).returns({ activeChallenge: '1st-grade-math', questionIndex: 1 });
+      this.sinon.stub(repository, 'getPlayer').withArgs(1).returns({ activeChallenge: { challengeId: '1st-grade-math', questionIndex: 1 } });
       var expected = [ {
         text: "That's wrong \u{1F44E}\nThe correct answer is:\n1",
         options: { parse_mode: "Markdown" }

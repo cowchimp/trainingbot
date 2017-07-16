@@ -39,10 +39,12 @@ async function setActiveChallenge(userId, challengeId) {
   try {
     var filter = { _id: userId };
     var update = { $set: {
-      activeChallenge: challengeId,
-      questionIndex: 0,
-      correctQuestionCount: 0
-    } };
+      activeChallenge: {
+        challengeId: challengeId,
+        questionIndex: 0,
+        correctQuestionCount: 0
+      }
+    }};
     return await db.collection('players').updateOne(filter, update, { upsert: true });
   } finally {
     db.close();
@@ -55,10 +57,10 @@ async function advanceToNextQuestion(userId, shouldIncCorrectQuestionCount = fal
   try {
     var filter = { _id: userId };
     var update = { $inc: {
-      questionIndex: 1
+      'activeChallenge.questionIndex': 1
     } };
     if(shouldIncCorrectQuestionCount) {
-      update['$inc'].correctQuestionCount = 1;
+      update['$inc']['activeChallenge.correctQuestionCount'] = 1;
     }
     return await db.collection('players').updateOne(filter, update, { upsert: true });
   } finally {

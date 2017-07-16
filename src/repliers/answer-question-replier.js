@@ -8,16 +8,20 @@ async function reply({userId, text}) {
   }
 
   var player = await repository.getPlayer(userId);
-  if(!player || !player.activeChallenge) {
+  if(!player) {
+    return null;
+  }
+  var { activeChallenge } = player;
+  if(!activeChallenge) {
     return null;
   }
 
-  var challenge = await repository.getChallengeById(player.activeChallenge);
+  var challenge = await repository.getChallengeById(activeChallenge.challengeId);
   if(!challenge) {
     return null;
   }
 
-  var question = challenge.questions[player.questionIndex];
+  var question = challenge.questions[activeChallenge.questionIndex];
   let chosenAnswerIndex = question.answers.indexOf(text);
   if(chosenAnswerIndex < 0) {
     let feedbackMessage = "That's not a valid answer for the question- try again";
@@ -28,13 +32,13 @@ async function reply({userId, text}) {
   var isCorrectAnswer = chosenAnswerIndex == question.correctAnswerIndex;
   var feedbackMessage = getValidAnswerFeedbackMessage(isCorrectAnswer, question);
 
-  if(player.questionIndex < challenge.questions.length - 1) {
+  if(activeChallenge.questionIndex < challenge.questions.length - 1) {
     await repository.advanceToNextQuestion(userId, isCorrectAnswer);
-    let questionMessage = questionMessageFormatter.format(challenge.questions[++player.questionIndex]);
+    let questionMessage = questionMessageFormatter.format(challenge.questions[++activeChallenge.questionIndex]);
     return [ feedbackMessage, questionMessage ];
   }
 
-  var correctQuestionCount = (player.correctQuestionCount || 0)  + (isCorrectAnswer ? 1 : 0);
+  var correctQuestionCount = (activeChallenge.correctQuestionCount || 0)  + (isCorrectAnswer ? 1 : 0);
   var statsMessage = getStatsMessage(challenge, correctQuestionCount);
   var startNewChallengeMessage = startNewChallengeMessageFormatter.format();
   await repository.setActiveChallenge(userId, null);
